@@ -1,0 +1,16 @@
+.ticket {
+    height: 150px;
+    width: 200px;
+
+    border: 1px solid blanchedalmond;
+    background-color: rgb(35, 186, 186);
+    text-align: center;
+
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
+
+.ticketDone {
+    text-decoration: line-through;
+}

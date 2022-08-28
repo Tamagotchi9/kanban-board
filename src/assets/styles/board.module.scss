@@ -1,0 +1,14 @@
+.board {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid gray;
+
+    width: 100%;
+    height: 100vh;
+
+    padding-top: 60px;
+}
+
+.boardDark {
+    background: darkblue;
+}

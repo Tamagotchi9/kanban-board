@@ -1,0 +1,30 @@
+.field {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+
+.field--drop {
+    background-color: aquamarine;
+}
+
+.field:not(:last-child) {
+    border-right: 1px solid black;
+}
+
+.fieldHeader {
+    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tickets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+}
