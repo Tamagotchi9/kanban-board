@@ -23,6 +23,7 @@ export const Ticket = ({ fieldId, fieldIdx, id, title, description, date }) => {
       className={classnames(styles.ticket, {
         [styles.ticketDone]: lastCol.id === fieldId,
         [styles.ticketDark]: theme,
+        [styles.ticketDragging]: isDragging,
       })}
       ref={drag}
     >
