@@ -6,23 +6,30 @@ import { Header } from "../layout/Header";
 import { Popup } from "./Popup";
 import { TicketForm } from "./TicketForm";
 import { boardSlice } from "../store/modules/board";
-import { modalSlice } from "../store/modules/modal";
 import classnames from "classnames";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Theme } from "./Theme";
 
 export const Board = () => {
   const dispatch = useDispatch();
   const [theme, setTheme] = useState(false);
+  const [modal, setModal] = useState(false);
   const fields = useSelector((state) => selectBoardColumns(state));
-  const createTicket = (ticket) => {
-    dispatch(boardSlice.actions.createNewTicket(ticket));
-    dispatch(modalSlice.actions.close());
-  };
+
+  const createTicket = useCallback(
+    (ticket) => {
+      dispatch(boardSlice.actions.createNewTicket(ticket));
+    },
+    [dispatch]
+  );
 
   return (
     <Theme.Provider value={theme}>
-      <Header theme={theme} handleTheme={setTheme}></Header>
+      <Header
+        theme={theme}
+        handleTheme={setTheme}
+        showModal={() => setModal(true)}
+      ></Header>
       <div
         className={classnames(styles.board, {
           [styles.boardDark]: theme,
@@ -37,8 +44,15 @@ export const Board = () => {
           />
         ))}
       </div>
-      <Popup>
-        <TicketForm handleSubmit={createTicket} />
+      <Popup
+        isOpen={modal}
+        close={() => setModal(false)}
+        modalTitle="Add ticket"
+      >
+        <TicketForm
+          handleSubmit={createTicket}
+          closeModal={() => setModal(false)}
+        />
       </Popup>
     </Theme.Provider>
   );

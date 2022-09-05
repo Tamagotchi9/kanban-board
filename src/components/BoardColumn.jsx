@@ -4,6 +4,9 @@ import { Ticket } from "./Ticket";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBoardColumnTickets } from "../store/modules/board/selectors";
+import { useCallback, useContext } from "react";
+import classnames from "classnames";
+import { Theme } from "./Theme";
 
 export const BoardColumn = ({ fieldId, name, fieldIdx }) => {
   const dispatch = useDispatch();
@@ -11,6 +14,8 @@ export const BoardColumn = ({ fieldId, name, fieldIdx }) => {
   const tickets = useSelector((state) =>
     selectBoardColumnTickets(state, fieldId)
   );
+
+  const theme = useContext(Theme);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ticket",
@@ -21,14 +26,22 @@ export const BoardColumn = ({ fieldId, name, fieldIdx }) => {
     }),
   }));
 
-  const addTicketToField = (fromId, ticketId) => {
-    dispatch(boardSlice.actions.moveTicket({ fromId, ticketId, fieldId }));
-  };
+  const addTicketToField = useCallback(
+    (fromId, ticketId) => {
+      dispatch(boardSlice.actions.moveTicket({ fromId, ticketId, fieldId }));
+    },
+    [fieldId, dispatch]
+  );
 
   return (
-    <div className={styles.field}>
+    <section
+      className={classnames(styles.field, {
+        [styles.fieldDark]: theme,
+        [styles.fieldOver]: isOver,
+      })}
+    >
       <div className={styles.fieldHeader}>
-        <h3>{name}</h3>
+        <h3 className={styles.fieldTitle}>{name}</h3>
       </div>
       <div className={styles.tickets} ref={drop}>
         {tickets.map((ticket) => (
@@ -42,7 +55,8 @@ export const BoardColumn = ({ fieldId, name, fieldIdx }) => {
             date={ticket.date}
           />
         ))}
+        {isOver && <span className={styles.targetText}>Drop here!</span>}
       </div>
-    </div>
+    </section>
   );
 };

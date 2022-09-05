@@ -1,0 +1,16 @@
+.root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 35px;
+
+    border: 1px solid green;
+    border-radius: 15px 15px 0 0;
+
+    font-size: 22px;
+}
+
+.root:not(:last-child) {
+    margin-bottom: 15px;
+}

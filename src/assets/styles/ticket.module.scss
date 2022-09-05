@@ -1,10 +1,13 @@
 .ticket {
-    height: 150px;
-    width: 200px;
-
-    border: 1px solid blanchedalmond;
-    background-color: rgb(35, 186, 186);
+    width: 95%;
+    max-width: 100%;
     text-align: center;
+    padding: 15px 0;
+
+    box-shadow: 2px 4px 6px 2px gray;
+    border-radius: 5px;
+    background: #fff;
+    color: #000;
 
     &:not(:last-child) {
         margin-bottom: 15px;
@@ -13,4 +16,9 @@
 
 .ticketDone {
     text-decoration: line-through;
+}
+
+.ticketDark {
+    background: rgb(37, 37, 55);
+    color: #fff;
 }

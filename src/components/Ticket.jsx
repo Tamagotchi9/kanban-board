@@ -3,6 +3,8 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { selectBoardLastColumn } from "../store/modules/board/selectors";
 import classnames from "classnames";
+import { useContext } from "react";
+import { Theme } from "./Theme";
 
 export const Ticket = ({ fieldId, fieldIdx, id, title, description, date }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -12,6 +14,7 @@ export const Ticket = ({ fieldId, fieldIdx, id, title, description, date }) => {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+  const theme = useContext(Theme);
 
   const lastCol = useSelector((state) => selectBoardLastColumn(state));
 
@@ -19,10 +22,11 @@ export const Ticket = ({ fieldId, fieldIdx, id, title, description, date }) => {
     <article
       className={classnames(styles.ticket, {
         [styles.ticketDone]: lastCol.id === fieldId,
+        [styles.ticketDark]: theme,
       })}
       ref={drag}
     >
-      <h3>{title}</h3>
+      <h5>{title}</h5>
       <p>{description}</p>
       <time>{date}</time>
     </article>
